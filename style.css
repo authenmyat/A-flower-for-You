@@ -1,0 +1,1530 @@
+/* GENERAL SETTINGS */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    min-height: 100dvh;
+    background: #08091d;
+    font-family: 'Courier New', monospace;
+    overflow: hidden;
+}
+
+/* NIGHT SCENE */
+
+.scene {
+    position: relative;
+    width: 100%;
+    max-width: 600px;
+    height: 100vh;
+    height: 100dvh;
+    overflow: hidden;
+
+    background: linear-gradient(
+        to bottom,
+        #080b27 0%,
+        #151344 25%,
+        #30245f 50%,
+        #29255a 70%,
+        #102b32 100%
+    );
+}
+
+/* STARS */
+
+.stars {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.star {
+    position: absolute;
+    width: 3px;
+    height: 3px;
+    background: white;
+    border-radius: 50%;
+    box-shadow: 0 0 8px #ffffff;
+
+    animation: twinkle 2s infinite alternate;
+}
+
+@keyframes twinkle {
+    from {
+        opacity: 0.2;
+        transform: scale(0.6);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1.5);
+    }
+}
+
+/* GLOWING MOON */
+
+.moon {
+    position: absolute;
+    width: 85px;
+    height: 85px;
+    top: 19%;
+    left: 50%;
+    transform: translateX(-50%);
+
+    border-radius: 50%;
+
+    background: radial-gradient(
+        circle at 35% 35%,
+        #fffef0,
+        #fff1b8 60%,
+        #e6c987
+    );
+
+    box-shadow:
+        0 0 25px #fff3bd,
+        0 0 65px #e5d9ff,
+        0 0 110px #aaa0ff;
+
+    z-index: 2;
+}
+
+/* RAINBOW */
+
+.rainbow {
+    position: absolute;
+    width: 85%;
+    height: 250px;
+    top: 10%;
+    left: 7.5%;
+
+    border-radius: 50% 50% 0 0;
+
+    border-top: 8px solid rgba(255, 130, 180, 0.25);
+
+    box-shadow:
+        0 -8px 15px rgba(255, 180, 100, 0.15),
+        0 -17px 20px rgba(140, 255, 180, 0.12),
+        0 -27px 25px rgba(100, 170, 255, 0.15);
+
+    pointer-events: none;
+    z-index: 1;
+}
+
+/* MESSAGE */
+
+h1 {
+    position: absolute;
+    top: 5%;
+    width: 100%;
+    padding: 0 12px;
+
+    text-align: center;
+    font-size: clamp(25px, 7vw, 42px);
+    letter-spacing: 3px;
+
+    color: #ff9ed8;
+
+    text-shadow:
+        0 0 10px #ff69b4,
+        0 0 25px #ff69b4;
+
+    z-index: 10;
+}
+
+/* FLOWER */
+
+.flower {
+    position: absolute;
+    width: 220px;
+    height: 370px;
+
+    left: 50%;
+    bottom: 12%;
+
+    transform: translateX(-50%);
+    cursor: pointer;
+    z-index: 5;
+
+    -webkit-tap-highlight-color: transparent;
+}
+
+/* STEM */
+
+.stem {
+    position: absolute;
+    width: 10px;
+    height: 260px;
+
+    left: 105px;
+    top: 100px;
+
+    border-radius: 8px;
+
+    background: linear-gradient(
+        to right,
+        #1c713e,
+        #68db7d,
+        #185b38
+    );
+}
+
+/* LEAVES */
+
+.leaf {
+    position: absolute;
+    width: 85px;
+    height: 35px;
+
+    background: linear-gradient(
+        135deg,
+        #79df87,
+        #216b45
+    );
+
+    border-radius: 100% 0 100% 0;
+}
+
+.leaf-left {
+    left: 25px;
+    top: 245px;
+    transform: rotate(30deg);
+}
+
+.leaf-right {
+    left: 110px;
+    top: 290px;
+    transform: rotate(-35deg) scaleX(-1);
+}
+
+/* PETALS */
+
+.petals {
+    position: absolute;
+    left: 110px;
+    top: 100px;
+    width: 0;
+    height: 0;
+}
+
+.petal {
+    position: absolute;
+
+    width: 43px;
+    height: 95px;
+
+    left: -21.5px;
+    top: -95px;
+
+    border-radius: 55% 55% 45% 45%;
+
+    background: linear-gradient(
+        to right,
+        #a7c6ff,
+        #ffffff 35%,
+        #f4f2ff 70%,
+        #a8c7f8
+    );
+
+    transform-origin: 50% 100%;
+
+    box-shadow: 0 0 8px rgba(255,255,255,0.35);
+}
+
+/* FALLING PETALS */
+
+.petal.falling {
+    pointer-events: none;
+
+    animation: petalFall 3s ease-in forwards;
+}
+
+@keyframes petalFall {
+    0% {
+        opacity: 1;
+        transform:
+            translate(0, 0)
+            rotate(var(--angle));
+    }
+
+    100% {
+        opacity: 0;
+        transform:
+            translate(90px, 420px)
+            rotate(calc(var(--angle) + 500deg));
+    }
+}
+
+/* FLOWER CENTER */
+
+.center {
+    position: absolute;
+
+    width: 67px;
+    height: 67px;
+
+    left: 76.5px;
+    top: 66.5px;
+    border-radius: 50%;
+
+    background: radial-gradient(
+        circle,
+        #ffe58a 0%,
+        #ffc54e 55%,
+        #b87527 100%
+    );
+
+    border: 5px solid #a56c2b;
+
+    box-shadow:
+        0 0 10px rgba(255, 200, 80, 0.5);
+
+    z-index: 7;
+}
+
+/* FLOWER FIELD */
+
+.flower-field {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 3;
+}
+
+.field-flower {
+    position: absolute;
+    width: var(--size);
+    height: var(--size);
+
+    background: var(--color);
+    border-radius: 50%;
+
+    box-shadow:
+        0 0 7px var(--color);
+
+    opacity: 0.9;
+}
+
+/* FLOATING HEARTS */
+
+.hearts {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 15;
+}
+
+.heart {
+    position: absolute;
+    bottom: 30%;
+    font-size: 25px;
+
+    animation: floatHeart 4s linear forwards;
+}
+
+@keyframes floatHeart {
+    0% {
+        transform: translateY(0) scale(0.5);
+        opacity: 0;
+    }
+
+    20% {
+        opacity: 1;
+    }
+
+    100% {
+        transform: translateY(-450px) scale(1.4);
+        opacity: 0;
+    }
+}
+
+/* INSTRUCTIONS */
+
+.instruction {
+    position: absolute;
+    bottom: 5%;
+    width: 100%;
+
+    text-align: center;
+    font-size: 14px;
+    color: #fff0fa;
+
+    text-shadow: 0 0 8px #ff69b4;
+    z-index: 20;
+}
+
+/* REPLAY BUTTON */
+
+#replay {
+    display: none;
+
+    position: absolute;
+    left: 50%;
+    bottom: 10%;
+
+    transform: translateX(-50%);
+
+    padding: 12px 24px;
+
+    border: 2px solid #ff9ed8;
+    border-radius: 25px;
+
+    background: rgba(40, 20, 65, 0.85);
+    color: white;
+
+    font-size: 15px;
+    cursor: pointer;
+
+    box-shadow: 0 0 15px #ff69b4;
+
+    z-index: 20;
+}
+
+/* MOBILE */
+
+@media (max-width: 480px) {
+    .flower {
+        transform: translateX(-50%) scale(0.85);
+        transform-origin: bottom center;
+    }
+
+    .moon {
+        width: 65px;
+        height: 65px;
+    }
+
+    .instruction {
+        font-size: 12px;
+    }
+}
+/* CUTE MUSIC BUTTON */
+
+#musicButton {
+    position: absolute;
+    top: 3%;
+    right: 5%;
+
+    width: 48px;
+    height: 48px;
+
+    border-radius: 50%;
+    border: 2px solid #ffb6e1;
+
+    background: rgba(255, 105, 180, 0.25);
+    color: #ffffff;
+
+    font-size: 25px;
+    cursor: pointer;
+
+    box-shadow:
+        0 0 12px #ff69b4,
+        0 0 25px rgba(255, 105, 180, 0.4);
+
+    backdrop-filter: blur(8px);
+
+    z-index: 100;
+
+    transition: all 0.3s ease;
+}
+
+#musicButton:hover {
+    transform: scale(1.1);
+    background: rgba(255, 105, 180, 0.5);
+}
+
+#musicButton.playing {
+    background: #ff69b4;
+
+    box-shadow:
+        0 0 20px #ff69b4,
+        0 0 40px #ff1493;
+
+    animation: musicGlow 2s infinite alternate;
+}
+
+@keyframes musicGlow {
+    from {
+        box-shadow: 0 0 10px #ff69b4;
+    }
+
+    to {
+        box-shadow:
+            0 0 25px #ff69b4,
+            0 0 45px #ff1493;
+    }
+}
+#instruction {
+    white-space: pre-line;
+    text-align: center;
+    line-height: 1.8;
+    color: #ffd6e7;
+    font-size: 15px;
+    text-shadow: 0 0 10px rgba(255, 105, 180, 0.6);
+}
+/* Romantic confession message */
+#instruction {
+    position: absolute;
+    bottom: 110px;
+    left: 50%;
+    transform: translateX(-50%);
+
+    width: 90%;
+    max-width: 500px;
+
+    text-align: center;
+    white-space: pre-line;
+    line-height: 1.8;
+
+    font-size: 16px;
+    color: #ffe4f0;
+
+    text-shadow: 0 0 10px #ff69b4;
+    z-index: 20;
+}
+
+/* Play Again button */
+#replay {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+
+    z-index: 21;
+}
+/* 🌙 Romantic Midnight Blue Background */
+
+body {
+    background: #020617;
+}
+
+.scene {
+    background: linear-gradient(
+        to bottom,
+        #020617 0%,
+        #050d24 25%,
+        #0a1740 50%,
+        #102650 75%,
+        #071a30 100%
+    );
+}
+
+/* Soft moonlight atmosphere */
+.scene::before {
+    background: radial-gradient(
+        ellipse at 50% 35%,
+        rgba(90, 130, 220, 0.12) 0%,
+        rgba(30, 60, 120, 0.06) 45%,
+        transparent 75%
+    );
+}
+/* ==========================
+   MAGICAL MIDNIGHT GARDEN
+========================== */
+
+/* Deep blue night */
+.scene {
+    background: linear-gradient(
+        to bottom,
+        #020617 0%,
+        #06112c 35%,
+        #0b2045 70%,
+        #102c35 100%
+    );
+    overflow: hidden;
+}
+
+/* Grass at the bottom */
+.night-grass {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 115px;
+    z-index: 2;
+    pointer-events: none;
+
+    background: linear-gradient(
+        to top,
+        #061b12 0%,
+        #0b3020 45%,
+        #17452d 85%,
+        transparent 100%
+    );
+}
+
+/* Individual grass blades */
+.grass-blade {
+    position: absolute;
+    bottom: 0;
+    width: 3px;
+    height: 35px;
+
+    background: linear-gradient(
+        to top,
+        #0b2819,
+        #367b48
+    );
+
+    border-radius: 100% 100% 0 0;
+    transform-origin: bottom center;
+
+    animation: grassSway 3s ease-in-out infinite alternate;
+}
+
+@keyframes grassSway {
+    from {
+        transform: rotate(-8deg);
+    }
+    to {
+        transform: rotate(8deg);
+    }
+}
+
+/* Tiny glowing flowers */
+.grass-flower {
+    position: absolute;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+
+    background: #ffc4e1;
+
+    box-shadow:
+        0 0 6px #ff8ac7,
+        0 0 12px #ff69b4;
+
+    animation: flowerGlow 2s ease-in-out infinite alternate;
+}
+
+@keyframes flowerGlow {
+    from {
+        opacity: 0.3;
+        transform: scale(0.8);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1.4);
+    }
+}
+
+/* Twinkling stars */
+.night-star {
+    position: absolute;
+    width: 2px;
+    height: 2px;
+    border-radius: 50%;
+    background: white;
+    box-shadow: 0 0 6px white;
+
+    animation: starTwinkle 3s infinite alternate;
+}
+
+@keyframes starTwinkle {
+    from {
+        opacity: 0.2;
+        transform: scale(0.6);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1.5);
+    }
+}
+
+/* Star container */
+.night-stars {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+}
+
+/* Keep the grass behind your confession */
+#instruction,
+#replay {
+    z-index: 20;
+}
+/* Shooting star animation */
+.shooting-star {
+    position: absolute;
+    top: 15%;
+    left: -100px;
+
+    width: 90px;
+    height: 2px;
+
+    background: linear-gradient(
+        90deg,
+        transparent,
+        #ffffff
+    );
+
+    border-radius: 50%;
+    box-shadow: 0 0 10px #a8cfff;
+
+    z-index: 3;
+    pointer-events: none;
+
+    animation: shootingStar 8s linear infinite;
+}
+
+@keyframes shootingStar {
+    0%, 85% {
+        transform: translate(0, 0) rotate(-20deg);
+        opacity: 0;
+    }
+
+    87% {
+        opacity: 1;
+    }
+
+    100% {
+        transform: translate(850px, 250px) rotate(-20deg);
+        opacity: 0;
+    }
+}
+/* Shooting star animation */
+.shooting-star {
+    position: absolute;
+    top: 15%;
+    left: -100px;
+
+    width: 90px;
+    height: 2px;
+
+    background: linear-gradient(
+        90deg,
+        transparent,
+        #ffffff
+    );
+
+    border-radius: 50%;
+    box-shadow: 0 0 10px #a8cfff;
+
+    z-index: 3;
+    pointer-events: none;
+
+    animation: shootingStar 8s linear infinite;
+}
+
+@keyframes shootingStar {
+    0%, 85% {
+        transform: translate(0, 0) rotate(-20deg);
+        opacity: 0;
+    }
+
+    87% {
+        opacity: 1;
+    }
+
+    100% {
+        transform: translate(850px, 250px) rotate(-20deg);
+        opacity: 0;
+    }
+}
+/* ==============================
+   DREAMY MIDNIGHT GRASS
+============================== */
+
+.night-grass {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+
+    width: 100%;
+    height: 125px;
+
+    background: linear-gradient(
+        to top,
+        #03130c 0%,
+        #092719 40%,
+        rgba(15, 55, 35, 0.6) 75%,
+        transparent 100%
+    );
+
+    z-index: 2;
+    pointer-events: none;
+}
+
+/* Natural curved grass */
+
+.grass-blade {
+    position: absolute;
+    bottom: 0;
+
+    width: 3px;
+    height: 40px;
+
+    background: linear-gradient(
+        to top,
+        #123b25,
+        #2f8050,
+        #75b78a
+    );
+
+    border-radius: 100% 0 100% 0;
+
+    transform-origin: bottom center;
+
+    animation: naturalGrass 4s ease-in-out infinite alternate;
+}
+
+@keyframes naturalGrass {
+    0% {
+        transform: rotate(-12deg) skewX(-8deg);
+    }
+
+    100% {
+        transform: rotate(12deg) skewX(8deg);
+    }
+}
+
+/* Magical tiny flowers */
+
+.grass-flower {
+    position: absolute;
+
+    width: 7px;
+    height: 7px;
+
+    border-radius: 50%;
+
+    background: #ffb7dc;
+
+    box-shadow:
+        0 0 5px #ff8ac7,
+        0 0 12px rgba(255, 105, 180, 0.8);
+
+    animation: magicalFlower 3s ease-in-out infinite alternate;
+}
+
+@keyframes magicalFlower {
+    0% {
+        opacity: 0.4;
+        transform: scale(0.7);
+    }
+
+    100% {
+        opacity: 1;
+        transform: scale(1.4);
+    }
+}
+
+/* Different flower colors */
+
+.grass-flower:nth-child(3n) {
+    background: #c9b6ff;
+    box-shadow: 0 0 10px #a78bfa;
+}
+
+.grass-flower:nth-child(5n) {
+    background: #a5e3ff;
+    box-shadow: 0 0 10px #7dd3fc;
+}
+
+.grass-flower:nth-child(7n) {
+    background: #ffe4a8;
+    box-shadow: 0 0 10px #ffd166;
+}
+/* ==============================
+   SOFT MIDNIGHT MOONLIGHT
+============================== */
+
+.scene {
+    background:
+        radial-gradient(
+            ellipse at 50% 30%,
+            rgba(75, 110, 190, 0.18),
+            transparent 55%
+        ),
+        linear-gradient(
+            to bottom,
+            #020617 0%,
+            #06112c 35%,
+            #0b2045 70%,
+            #102c35 100%
+        );
+}
+/* Romantic confession box */
+
+.instruction {
+    position: absolute;
+    bottom: 105px;
+    left: 50%;
+    transform: translateX(-50%);
+
+    width: 85%;
+    max-width: 480px;
+    box-sizing: border-box;
+
+    padding: 18px 20px;
+
+    background: rgba(5, 12, 35, 0.88);
+
+    border: 1px solid rgba(255, 182, 193, 0.5);
+    border-radius: 20px;
+
+    backdrop-filter: blur(12px);
+
+    color: #ffe4ec;
+    font-size: 15px;
+    line-height: 1.8;
+    text-align: center;
+
+    text-shadow: 0 0 5px #ff8fab;
+
+    box-shadow: 0 0 25px rgba(255, 105, 180, 0.25);
+
+    z-index: 100;
+}
+/* Beautiful compact love letter */
+
+.instruction {
+    position: absolute;
+    bottom: 100px;
+    left: 50%;
+    transform: translateX(-50%);
+
+    width: 85%;
+    max-width: 480px;
+    height: auto;
+
+    padding: 15px 20px;
+
+    background: rgba(5, 12, 35, 0.88);
+    border: 1px solid #ff9ebc;
+    border-radius: 20px;
+
+    backdrop-filter: blur(10px);
+
+    text-align: center;
+    z-index: 100;
+}
+
+.love-letter {
+    text-align: center;
+    animation: loveReveal 2s ease;
+}
+
+.love-letter h2 {
+    color: #ff9ebc;
+    font-size: 20px;
+    margin: 5px 0;
+}
+
+.love-letter p {
+    color: #ffe4ec;
+    font-size: 14px;
+    line-height: 1.5;
+    margin: 5px 0;
+}
+
+.love-letter .forever {
+    color: #ff8fab;
+    font-style: italic;
+    margin-top: 8px;
+}
+
+@keyframes loveReveal {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+/* Small romantic love letter box */
+
+.instruction {
+    position: absolute;
+    bottom: 110px;
+    left: 50%;
+    transform: translateX(-50%);
+
+    width: 80%;
+    max-width: 420px;
+    height: auto;
+
+    padding: 12px 16px;
+    box-sizing: border-box;
+
+    background: rgba(5, 12, 35, 0.9);
+    border: 1px solid #ff9ebc;
+    border-radius: 18px;
+
+    backdrop-filter: blur(10px);
+    text-align: center;
+    z-index: 100;
+}
+
+.love-letter {
+    text-align: center;
+    animation: loveReveal 2s ease;
+}
+
+.love-letter h2 {
+    color: #ff9ebc;
+    font-size: 18px;
+    margin: 4px 0 8px;
+}
+
+.love-letter p {
+    color: #ffe4ec;
+    font-size: 13px;
+    line-height: 1.4;
+    margin: 5px 0;
+}
+
+.love-letter .forever {
+    color: #ff8fab;
+    font-size: 13px;
+    font-style: italic;
+    margin-top: 8px;
+}
+
+@keyframes loveReveal {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+/* FIX: Small romantic letter box */
+
+.instruction:has(.love-letter) {
+    position: absolute !important;
+    top: auto !important;
+    bottom: 110px !important;
+    left: 50% !important;
+    right: auto !important;
+
+    transform: translateX(-50%) !important;
+
+    width: 85% !important;
+    max-width: 420px !important;
+    height: auto !important;
+    min-height: 0 !important;
+    max-height: none !important;
+
+    padding: 14px 18px !important;
+    margin: 0 !important;
+
+    display: block !important;
+
+    background: rgba(5, 12, 35, 0.92);
+    border: 1px solid #ff9ebc;
+    border-radius: 18px;
+
+    box-sizing: border-box;
+    z-index: 100;
+}
+
+/* Remove large gaps between sentences */
+
+.love-letter {
+    display: block !important;
+    height: auto !important;
+    min-height: 0 !important;
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+.love-letter h2 {
+    font-size: 18px !important;
+    margin: 0 0 8px !important;
+}
+
+.love-letter p {
+    font-size: 13px !important;
+    line-height: 1.5 !important;
+    margin: 5px 0 !important;
+}
+
+.love-letter .forever {
+    margin-top: 8px !important;
+}
+/* SMALL ROMANTIC MESSAGE BOX */
+
+.love-letter {
+    position: absolute;
+    bottom: 110px;
+    left: 50%;
+    transform: translateX(-50%);
+
+    width: 65%;
+    max-width: 520px;
+    height: auto;
+
+    padding: 18px 22px;
+
+    background: rgba(8, 12, 30, 0.92);
+
+    border: 2px solid #ff9c9c;
+    border-radius: 25px;
+
+    box-shadow:
+        0 0 15px rgba(255, 120, 120, 0.4),
+        0 0 30px rgba(255, 100, 100, 0.2);
+
+    text-align: center;
+    z-index: 20;
+}
+
+/* MESSAGE TEXT */
+
+.love-letter p {
+    color: #ffd6b0;
+    font-size: 15px;
+    line-height: 1.7;
+    margin: 8px 0;
+    text-shadow: 0 0 6px #ff9977;
+}
+
+/* SMALL SCREEN */
+
+@media (max-width: 600px) {
+    .love-letter {
+        width: 82%;
+        bottom: 100px;
+        padding: 14px;
+    }
+
+    .love-letter p {
+        font-size: 13px;
+    }
+}
+/* SMALL ROMANTIC LETTER BOX */
+
+.love-letter {
+    position: relative !important;
+
+    width: 70% !important;
+    max-width: 500px !important;
+    height: auto !important;
+    min-height: 0 !important;
+
+    margin: 10px auto !important;
+    padding: 15px 20px !important;
+
+    background: rgba(10, 15, 30, 0.94) !important;
+    border: 1px solid #ff9b91 !important;
+    border-radius: 22px !important;
+
+    box-shadow: 0 0 15px rgba(255, 120, 120, 0.3) !important;
+
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+    gap: 5px !important;
+}
+
+/* HIDE EXTRA LETTER TITLE */
+
+.love-letter h2 {
+    display: none !important;
+}
+
+/* ROMANTIC MESSAGE */
+
+.love-letter p {
+    font-size: 15px !important;
+    line-height: 1.5 !important;
+    margin: 4px 0 !important;
+    padding: 0 !important;
+    color: #ffd6b0 !important;
+    text-align: center !important;
+}
+
+/* HIDE SIGNATURE */
+
+.love-letter .forever {
+    display: none !important;
+}
+
+/* MOBILE FRIENDLY */
+
+@media (max-width: 600px) {
+    .love-letter {
+        width: 85% !important;
+        padding: 12px !important;
+    }
+
+    .love-letter p {
+        font-size: 12px !important;
+    }
+}
+/* REMOVE THE LARGE EMPTY BOX */
+
+.instruction:has(.love-letter) {
+    position: absolute !important;
+    bottom: 100px !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+
+    width: 85% !important;
+    max-width: 650px !important;
+    height: auto !important;
+    min-height: 0 !important;
+
+    padding: 0 !important;
+    margin: 0 !important;
+
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+
+    display: block !important;
+    z-index: 20 !important;
+}
+
+/* SMALL HORIZONTAL LETTER BOX */
+
+.instruction .love-letter {
+    position: relative !important;
+    inset: auto !important;
+    transform: none !important;
+
+    width: 100% !important;
+    max-width: none !important;
+    height: auto !important;
+    min-height: 0 !important;
+
+    margin: 0 !important;
+    padding: 15px 20px !important;
+
+    background: rgba(8, 12, 25, 0.94) !important;
+    border: 1px solid #ff9b91 !important;
+    border-radius: 22px !important;
+
+    box-shadow: 0 0 15px rgba(255, 120, 120, 0.3) !important;
+
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 5px !important;
+}
+
+/* ROMANTIC SENTENCES */
+
+.instruction .love-letter p {
+    font-size: 15px !important;
+    line-height: 1.5 !important;
+    margin: 4px 0 !important;
+    padding: 0 !important;
+}
+
+/* HIDE EXTRA TITLE AND SIGNATURE */
+
+.instruction .love-letter h2,
+.instruction .love-letter .forever {
+    display: none !important;
+}
+
+/* MOBILE */
+
+@media (max-width: 600px) {
+    .instruction:has(.love-letter) {
+        width: 85% !important;
+        bottom: 90px !important;
+    }
+
+    .instruction .love-letter p {
+        font-size: 12px !important;
+    }
+}
+/* COMPACT ROMANTIC LETTER */
+
+.instruction:has(.love-letter) {
+    bottom: 95px !important;
+    width: 78% !important;
+    max-width: 560px !important;
+}
+
+.instruction .love-letter {
+    padding: 12px 18px !important;
+    gap: 0 !important;
+    border-radius: 20px !important;
+}
+
+.instruction .love-letter p {
+    font-size: 14px !important;
+    line-height: 1.4 !important;
+    margin: 3px 0 !important;
+}
+/* SMALLER MESSAGE BOX */
+
+.instruction:has(.love-letter) {
+    bottom: 85px !important;
+    width: 75% !important;
+    max-width: 550px !important;
+}
+
+.instruction .love-letter {
+    padding: 10px 15px !important;
+    gap: 0 !important;
+    height: auto !important;
+    min-height: 0 !important;
+}
+
+.instruction .love-letter p {
+    font-size: 14px !important;
+    line-height: 1.3 !important;
+    margin: 2px 0 !important;
+}
+/* Compact romantic letter box */
+.instruction:has(.love-letter) {
+    bottom: 75px !important;
+    width: 65% !important;
+    max-width: 450px !important;
+}
+
+.instruction .love-letter {
+    padding: 12px 18px !important;
+    height: auto !important;
+    min-height: 0 !important;
+}
+
+.instruction .love-letter p {
+    font-size: 13px !important;
+    line-height: 1.3 !important;
+    margin: 5px 0 !important;
+}
+/* Romantic message without a box */
+
+.instruction:has(.love-letter) {
+    position: absolute !important;
+    bottom: 100px !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+
+    width: 85% !important;
+    max-width: 600px !important;
+
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+    z-index: 20 !important;
+}
+
+/* Remove letter box */
+.love-letter {
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+    height: auto !important;
+    min-height: 0 !important;
+}
+
+/* Hide letter heading */
+.love-letter h2 {
+    display: none !important;
+}
+
+/* Beautiful glowing text */
+.love-letter p {
+    color: #ffe4bd !important;
+    font-size: 17px !important;
+    font-weight: bold !important;
+    line-height: 1.5 !important;
+
+    text-align: center !important;
+    margin: 10px 0 !important;
+
+    text-shadow:
+        0 2px 4px #000000,
+        0 0 8px #000000,
+        0 0 12px rgba(255, 130, 100, 0.8) !important;
+}
+
+/* Keep replay button below message */
+#replay {
+    position: absolute !important;
+    bottom: 20px !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    z-index: 30 !important;
+}
+/* Romantic midnight sky */
+body {
+    background: linear-gradient(
+        to bottom,
+        #020617 0%,
+        #071438 35%,
+        #142d65 70%,
+        #243b70 100%
+    ) !important;
+}
+
+/* Mountain scenery */
+.scene::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 35%;
+
+    background: #101d42;
+
+    clip-path: polygon(
+        0% 60%,
+        12% 35%,
+        25% 65%,
+        40% 25%,
+        55% 60%,
+        70% 30%,
+        85% 55%,
+        100% 20%,
+        100% 100%,
+        0% 100%
+    );
+
+    z-index: 0;
+    pointer-events: none;
+}
+/* Romantic couple sitting on the grass */
+.romantic-couple {
+    position: absolute;
+    bottom: 12%;
+    left: 15%;
+    z-index: 5;
+    text-align: center;
+    pointer-events: none;
+}
+
+.couple-emoji {
+    font-size: 55px;
+    filter: drop-shadow(0 0 10px #ff8da1);
+    animation: coupleGlow 3s ease-in-out infinite;
+}
+
+.couple-caption {
+    color: #ffd6e0;
+    font-size: 11px;
+    margin-top: 5px;
+    text-shadow: 0 0 8px #ff8da1;
+}
+
+@keyframes coupleGlow {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+}
+/* Vertical romantic scene */
+.scene {
+    position: relative;
+    width: min(100%, 480px);
+    min-height: 700px;
+    height: 100dvh;
+    margin: 0 auto;
+    overflow: hidden;
+    background: linear-gradient(
+        to bottom,
+        #020617 0%,
+        #071638 45%,
+        #152d58 75%,
+        #101e35 100%
+    );
+}
+
+/* Smaller romantic letter */
+.love-letter {
+    position: absolute;
+    width: 85%;
+    max-width: 380px;
+    height: auto;
+    padding: 18px;
+    left: 50%;
+    top: auto;
+    bottom: 13%;
+    transform: translateX(-50%);
+    box-sizing: border-box;
+    z-index: 10;
+
+    background: rgba(5, 12, 30, 0.94);
+    border: 1px solid #ff987e;
+    border-radius: 18px;
+
+    color: #ffe2c6;
+    text-align: center;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+/* Keep letter paragraphs compact */
+.love-letter p {
+    margin: 8px 0;
+}
+
+/* Couple above the grass */
+.romantic-couple {
+    position: absolute;
+    left: 5%;
+    bottom: 5%;
+    z-index: 11;
+    text-align: center;
+}
+
+/* Hide the temporary caption */
+.couple-caption {
+    display: none;
+}
+
+@media (max-width: 480px) {
+    .scene {
+        min-height: 650px;
+    }
+
+    .love-letter {
+        font-size: 12px;
+        padding: 12px;
+    }
+}
+/* Beautiful Love Letter */
+
+.love-letter {
+    width: min(90%, 550px);
+    box-sizing: border-box;
+    margin: 0 auto;
+    padding: 28px 35px;
+
+    background: rgba(8, 10, 20, 0.95);
+    border: 2px solid #ffb38a;
+    border-radius: 20px;
+
+    text-align: center;
+    color: #ffe6b5;
+    font-family: Georgia, serif;
+
+    box-shadow: 0 0 18px rgba(255, 160, 120, 0.18);
+}
+
+.love-letter h2 {
+    font-size: 25px;
+    color: #ffb6c9;
+    margin: 0 0 22px;
+}
+
+.love-letter p {
+    font-size: 19px;
+    line-height: 1.7;
+    margin: 0 0 20px;
+}
+
+.love-letter p:last-child {
+    margin-bottom: 0;
+    color: #ffc4d6;
+}
